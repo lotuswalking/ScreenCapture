@@ -1,0 +1,17 @@
+d:\vs2017\ScreenCapture\ScreenCapture\bin\Debug\ScreenCapture.exe.config
+d:\vs2017\ScreenCapture\ScreenCapture\bin\Debug\ScreenCapture.exe
+d:\vs2017\ScreenCapture\ScreenCapture\bin\Debug\ScreenCapture.pdb
+d:\vs2017\ScreenCapture\ScreenCapture\obj\Debug\ScreenCapture.csprojResolveAssemblyReference.cache
+d:\vs2017\ScreenCapture\ScreenCapture\obj\Debug\ScreenCapture.CaptureWindows.resources
+d:\vs2017\ScreenCapture\ScreenCapture\obj\Debug\ScreenCapture.csproj.GenerateResource.Cache
+d:\vs2017\ScreenCapture\ScreenCapture\obj\Debug\ScreenCapture.csproj.CoreCompileInputs.cache
+d:\vs2017\ScreenCapture\ScreenCapture\obj\Debug\ScreenCapture.exe
+d:\vs2017\ScreenCapture\ScreenCapture\obj\Debug\ScreenCapture.pdb
+D:\vs2012\ScreenCapture\ScreenCapture\bin\Debug\ScreenCapture.exe.config
+D:\vs2012\ScreenCapture\ScreenCapture\bin\Debug\ScreenCapture.exe
+D:\vs2012\ScreenCapture\ScreenCapture\bin\Debug\ScreenCapture.pdb
+D:\vs2012\ScreenCapture\ScreenCapture\obj\Debug\ScreenCapture.csprojResolveAssemblyReference.cache
+D:\vs2012\ScreenCapture\ScreenCapture\obj\Debug\ScreenCapture.CaptureWindows.resources
+D:\vs2012\ScreenCapture\ScreenCapture\obj\Debug\ScreenCapture.csproj.GenerateResource.Cache
+D:\vs2012\ScreenCapture\ScreenCapture\obj\Debug\ScreenCapture.exe
+D:\vs2012\ScreenCapture\ScreenCapture\obj\Debug\ScreenCapture.pdb
