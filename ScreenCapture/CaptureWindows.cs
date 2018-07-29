@@ -16,21 +16,21 @@ namespace ScreenCapture
  
     public partial class CaptureWindows : Form
     {
-        #region 用户变量  update by junyan li
+        #region 用户变量
         //记录鼠标按下坐标，确定绘图起点  
         private Point DownPoint = Point.Empty;
         //截图完成  
-        //private bool CatchFinished = false;
+        private bool CatchFinished = false;
         //截图开始  
         private bool CatchStart = false;
 
-        private bool BackGroundPicSeted = false;
+        //private bool BackGroundPicSeted = false;
         //保存原始图像  
-        private Bitmap originBmp;
+        //private Bitmap originBmp;
         //保存截图的矩形  
         private Rectangle CatchRect;
 
-        private Screen lastScreen;
+        //private Screen lastScreen;
    
         MouseHook mh;
 
@@ -42,12 +42,7 @@ namespace ScreenCapture
             //this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             //this.BackColor = Color.Transparent;
             //this.Opacity = 0.4;
-            mh = new MouseHook();
-            mh.SetHook();
-            mh.MouseDownEvent += mh_MouseDownEvent;
-            mh.MouseUpEvent += mh_MouseUpEvent;
-            mh.MouseMoveEvent+=mh_MouseMoveEvent;
-            //CaptureApi.mouse_event(CaptureApi.MouseEventFlag.LeftDown,0,0,)
+           
         }
 
         private void mh_MouseMoveEvent(object sender, MouseEventArgs e)
@@ -73,16 +68,7 @@ namespace ScreenCapture
                 //Bitmap destBmp = new Bitmap(GetMouseScreen().Bounds.Width, GetMouseScreen().Bounds.Height);
                 System.IntPtr DesktopHandle = Win32Api.GetDC(System.IntPtr.Zero);
                 Graphics g = Graphics.FromHdc(DesktopHandle);
-                destBmp.Save(@"d:\destbmp.png");
-                //this.Opacity = 0.9;
-                //g.DrawImage(destBmp, e.Location);
-                
-                //if (CatchRect != null)
-                //{
-                //    g.Clear(Color.Empty);
-                //}
-                //g.CopyFromScreen(new Point(0, 0), new Point(0, 0), GetMouseScreen().Bounds.Size);
-
+                destBmp.Save(@"d:\destbmp.png");               
 
                 Pen pen = new Pen(Color.Blue, 4);
 
@@ -104,41 +90,22 @@ namespace ScreenCapture
 
                 //将矩形画在这个画板上  
                 g.DrawRectangle(pen, CatchRect);
+               
                 //释放这个画板  
                 g.Dispose();
                 //重新创建一个Graphics类  
                 Graphics g1 = this.CreateGraphics();
-                ////如果之前那个画板不释放，而直接g = this.CreateGraphics()这样的话无法释放掉第一次创建的g,因为只是把地址转到新的g了，如同string一样。  
-                ////将刚才所画的图片画到这个窗体上
+                //如果之前那个画板不释放，而直接g = this.CreateGraphics()这样的话无法释放掉第一次创建的g,因为只是把地址转到新的g了，如同string一样。  
+                //将刚才所画的图片画到这个窗体上
                 g1.DrawRectangle(pen, CatchRect);
-                //g1.FillRectangle(destBmp)
-                //g1.DrawImage(destBmp, new Point(0, 0));
-                //g1.DrawImage(destBmp, DownPoint);
-                //destBmp.Save(@"d:\destbmp.png");
-                ////这个也可以属于二次缓冲技术，如果直接将矩形画在窗体上，会造成图片抖动并且会有无数个矩形  
-                ////释放这个画板  
+                Clipboard.SetData(DataFormats.Bitmap, destBmp);
+                destBmp.Save(@"d:\destbmp.png");
+                //这个也可以属于二次缓冲技术，如果直接将矩形画在窗体上，会造成图片抖动并且会有无数个矩形  
+                //释放这个画板  
                 g1.Dispose();
-                ////释放掉Bmp对象。  k
-                //destBmp.Dispose();
-                //要及时释放不会再次使用的对象，不然内存将会被大量消耗  
 
-            }
-            else
-            {
-                //Point p = Cursor.Position;
-                //Screen s = GetMouseScreen();
-                //if ((lastScreen != null) && (s.Equals(lastScreen)))
-                //{
-                //    return;
-                //}
-                //lastScreen = s;
-                //DrawScreenRect(s);
-                //this.Left = s.Bounds.Left;
-                //this.Top = s.Bounds.Top;
-                //this.Size = s.Bounds.Size;
-                //this.label1.Location = new Point(p.X + 10, p.Y - 10);
-                //this.label1.Text = "Location：" + p.X + "," + p.Y;
-                //this.label1.Visible = true;
+                ////释放掉Bmp对象。  k
+                destBmp.Dispose();
             }
         }
 
@@ -162,8 +129,10 @@ namespace ScreenCapture
                     bitmap.Save("d:\\test1.png");
                     //将开始绘制设为false  
                     CatchStart = false;
-                    //完成绘制设为true  
-                    //CatchFinished = true;
+                    //完成绘制设为true 
+ 
+                    CatchFinished = true;
+                    mh.UnHook();
                     //this.Close();
                 }
             }
@@ -184,12 +153,12 @@ namespace ScreenCapture
                     if (!CatchStart)
                     {
                         CatchStart = true;
-                        timer1.Enabled = false;
+            
                         //this.BackgroundImage = CapActvieScreen();
                         ////this.Opacity = 0.5;
                         //this.Size = GetMouseScreen().Bounds.Size;
                         ////保存鼠标按下坐标  
-                        //DownPoint = new Point(e.X, e.Y);
+                        DownPoint = new Point(e.X, e.Y);
                         //Point newPoint = new Point(DownPoint.X, DownPoint.Y);
                         //originBmp = new Bitmap(GetMouseScreen().Bounds.Width, GetMouseScreen().Bounds.Height);
                         //Graphics g = Graphics.FromImage(originBmp);
@@ -226,18 +195,7 @@ namespace ScreenCapture
 
 
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
 
-            //Point p = Cursor.Position;
-            //Screen s = GetMouseScreen();
-            //this.Left = s.Bounds.Left;
-            //this.Top = s.Bounds.Top;
-            //this.Size = s.Bounds.Size;
-            //this.label1.Location = new Point(p.X + 10, p.Y - 10);
-            //this.label1.Text = "当前坐标：" + p.X + "," + p.Y;
-            //this.label1.Visible = true;
-        }
 
    
         private void CaptureCreen()
@@ -307,7 +265,7 @@ namespace ScreenCapture
             Graphics g = Graphics.FromImage(bitmap);
            // g.CopyFromScreen(end,start, new Size(width,height));
             g.CopyFromScreen(captureRectangle.Left, captureRectangle.Top, 0, 0, captureRectangle.Size);
-            //bitmap.Save(@"d:\test22.png");
+            bitmap.Save(@"d:\test22.png");
             g.Dispose();
 
             return bitmap;
@@ -318,10 +276,18 @@ namespace ScreenCapture
 
     private void button1_Click(object sender, EventArgs e)
         {
-            System.IntPtr DesktopHandle = Win32Api.GetDC(System.IntPtr.Zero);
-            Graphics g = Graphics.FromHdc(DesktopHandle);
-            g.DrawRectangle(new Pen(Color.Red), new Rectangle(300, 300, 100, 100));
-            g.Dispose();
+
+            mh = new MouseHook();
+            mh.SetHook();
+            mh.MouseDownEvent += mh_MouseDownEvent;
+            mh.MouseUpEvent += mh_MouseUpEvent;
+            mh.MouseMoveEvent += mh_MouseMoveEvent;
+            //CaptureApi.mouse_event(CaptureApi.MouseEventFlag.LeftDown,0,0,)
+
+            //System.IntPtr DesktopHandle = Win32Api.GetDC(System.IntPtr.Zero);
+            //Graphics g = Graphics.FromHdc(DesktopHandle);
+            //g.DrawRectangle(new Pen(Color.Red), new Rectangle(300, 300, 100, 100));
+            //g.Dispose();
         }
     }
 }

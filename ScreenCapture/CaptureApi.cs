@@ -26,6 +26,7 @@ namespace ScreenCapture
         //調用下一個鈎子
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern int CallNextHookEx(int idHook, int nCode, IntPtr wParam, IntPtr lParam);
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern bool GetCursorPos(out POINT lpPoint);
 
         [StructLayout(LayoutKind.Sequential)]
