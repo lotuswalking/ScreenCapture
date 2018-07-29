@@ -16,7 +16,7 @@ namespace ScreenCapture
  
     public partial class CaptureWindows : Form
     {
-        #region 用户变量  
+        #region 用户变量  update by junyan li
         //记录鼠标按下坐标，确定绘图起点  
         private Point DownPoint = Point.Empty;
         //截图完成  
